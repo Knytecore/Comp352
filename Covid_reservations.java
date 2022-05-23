@@ -114,7 +114,7 @@ public class Covid_reservations {
 		}
 		
 		int start = 0;
-		int end = activeReservations;
+		int end = (activeReservations-1);
 		
 	    while (start < end)
 	    {
