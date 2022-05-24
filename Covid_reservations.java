@@ -41,6 +41,8 @@ public class Covid_reservations {
 			System.out.println(dates[i] + "   " + rSlot[i] + "      " + rMedicare[i]);
 		}
 		
+		
+		
 		displayReservations(dates,rSlot,rMedicare);
 		displayPastReservationsIncreasingOrder(dates,rSlot,rMedicare);
 		displayPastReservationsDecreasingOrder(dates,rSlot,rMedicare);
@@ -114,8 +116,8 @@ public class Covid_reservations {
 		}
 		
 		if(!done) {
-			rearrangeReservations(dates,rSlot,rMedicare);
-		}
+			return rearrangeReservations(dates,rSlot,rMedicare);
+		}else {
 		
 		
 
@@ -143,11 +145,13 @@ public class Covid_reservations {
 			
 	        start++;
 	        end--;
+	        
 	    }
-	    
-	    
-		
 		return activeReservations;
+
+	    
+	    
+		}
 	}
 	
 	public static void displayReservations(Date[] dates,int[] rSlot,String[] rMedicare) {
