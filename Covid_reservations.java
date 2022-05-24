@@ -6,10 +6,18 @@ import java.text.DateFormat;
 
 
 public class Covid_reservations {
+	static Date today;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		
+		try {//Set date of today
+			today = sdf.parse("01-01-2022");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
+		
 		Date[] dates = null;
 		//Create dates array
 		try {
@@ -24,10 +32,19 @@ public class Covid_reservations {
 		
 		//Create rMedicare array
 		String[] rMedicare = {"CCC11","FFF22","DDD77","HHH33","KKK77","AAA66","JJJ44","EEE99","GGG55","BBB66"};
-		rearrangeReservations(dates,rSlot,rMedicare);
+		
+		
+		int nbFutureReservations = rearrangeReservations(dates,rSlot,rMedicare);
+		System.out.println("-------------Displaying All Reservations--------------");
+		System.out.println("Total Nb of Reservations: " + dates.length);
 		for(int i = 0; i<dates.length;i++) {
 			System.out.println(dates[i] + "   " + rSlot[i] + "      " + rMedicare[i]);
 		}
+		
+		displayReservations(dates,rSlot,rMedicare);
+		displayPastReservationsIncreasingOrder(dates,rSlot,rMedicare);
+		displayPastReservationsDecreasingOrder(dates,rSlot,rMedicare);
+
 		
 	}
 	
@@ -101,13 +118,7 @@ public class Covid_reservations {
 		}
 		
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		Date today = null;
-		try {//Set date of today
-			today = sdf.parse("01-01-2022");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} 
+
 		
 		while(today.compareTo(dates[activeReservations]) <= 0) {
 			activeReservations++;
@@ -139,6 +150,33 @@ public class Covid_reservations {
 		return activeReservations;
 	}
 	
+	public static void displayReservations(Date[] dates,int[] rSlot,String[] rMedicare) {
+		int nbFutureReservations = rearrangeReservations(dates,rSlot,rMedicare);
+		System.out.println("-------------Displaying Active Reservations--------------");
+		System.out.println("Nb of future Reservations: " + nbFutureReservations);
+		for(int i = 0; i<nbFutureReservations;i++) {
+			System.out.println(dates[i] + "   " + rSlot[i] + "      " + rMedicare[i]);
+		}
+	}
+	
+	
+	public static void displayPastReservationsDecreasingOrder(Date[] dates,int[] rSlot,String[] rMedicare) {
+		int nbFutureReservations = rearrangeReservations(dates,rSlot,rMedicare);
+		System.out.println("-------------Displaying Past Reservations in Decreasing Order --------------");
+		System.out.println("Nb of past Reservations: " + (dates.length-nbFutureReservations));
+		for(int i = nbFutureReservations; i<dates.length;i++) {
+			System.out.println(dates[i] + "   " + rSlot[i] + "      " + rMedicare[i]);
+		}
+	}
+	
+	public static void displayPastReservationsIncreasingOrder(Date[] dates,int[] rSlot,String[] rMedicare) {
+		int nbFutureReservations = rearrangeReservations(dates,rSlot,rMedicare);
+		System.out.println("-------------Displaying Past Reservations in Increasing Order --------------");
+		System.out.println("Nb of past Reservations: " + (dates.length-nbFutureReservations));
+		for(int i = (dates.length-1); i>=nbFutureReservations;i--) {
+			System.out.println(dates[i] + "   " + rSlot[i] + "      " + rMedicare[i]);
+		}
+	}
 	
 	
 
